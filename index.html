@@ -15,33 +15,53 @@
     <div class="bg-gray-100 min-h-screen flex items-center justify-center font-sans">
       <div class="w-full max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-6">
         <div class="text-center">
-          <h1 class="text-3xl font-bold text-gray-800">Dorking Helper</h1>
+          <h1 class="text-3xl font-bold text-gray-800">Cari Jitu!</h1>
           <p class="text-gray-500">Bikin pencarian Google-mu lebih jitu!</p>
         </div>
 
         <div class="space-y-2">
           <label for="keywordInput" class="text-lg font-semibold text-gray-700">Kata Kunci Utama</label>
-          <input
-            type="text"
-            id="keywordInput"
-            placeholder="Masukkan kata kunci di sini... (contoh: laporan keuangan)"
-            class="w-full p-4 text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
-          />
+          <input type="text" id="keywordInput" placeholder="laporan keuangan, jurnal ilmiah, ..." class="w-full p-4 text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition" />
         </div>
 
-        <div class="space-y-3">
-          <p class="text-lg font-semibold text-gray-700">Pilih Operator</p>
-          <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
-            <div class="flex items-center">
-              <input id="siteCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-              <label for="siteCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"> <code>site:</code> <span class="text-gray-500 font-normal">- Cari di website tertentu</span> </label>
+        <div class="border-b border-gray-200">
+          <nav class="flex space-x-4" aria-label="Tabs">
+            <button id="tab-dasar" class="tab-button text-blue-600 border-blue-600 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Dasar</button>
+            <button id="tab-tepat" class="tab-button text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Tepat & Ekstra</button>
+            <button id="tab-lanjutan" class="tab-button text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Lanjutan</button>
+          </nav>
+        </div>
+
+        <div id="panel-container" class="pt-4">
+          <div id="panel-dasar" class="tab-panel space-y-3">
+            <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
+              <div class="flex items-center">
+                <input id="siteCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                <label for="siteCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"><code>site:</code><span class="text-gray-500 font-normal"> - Cari di website tertentu</span></label>
+              </div>
+              <input type="text" id="siteInput" placeholder="contoh: kompas.com" class="w-full p-2 border rounded-md transition disabled:bg-gray-200" disabled />
             </div>
-            <input type="text" id="siteInput" placeholder="contoh: kompas.com" class="w-full p-2 border rounded-md transition disabled:bg-gray-200 disabled:cursor-not-allowed" disabled />
+            <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
+              <div class="flex items-center">
+                <input id="filetypeCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                <label for="filetypeCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"><code>filetype:</code><span class="text-gray-500 font-normal"> - Cari jenis file tertentu</span></label>
+              </div>
+              <input type="text" id="filetypeInput" placeholder="contoh: pdf, docx, xls" class="w-full p-2 border rounded-md transition disabled:bg-gray-200" disabled />
+            </div>
+            <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
+              <div class="flex items-center">
+                <input id="intitleCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                <label for="intitleCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"><code>intitle:</code><span class="text-gray-500 font-normal"> - Cari kata di dalam judul</span></label>
+              </div>
+            </div>
           </div>
 
-          <div class="flex items-center p-4 bg-gray-50 border rounded-lg hover:bg-gray-100 transition cursor-pointer">
-            <input id="inurlCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-            <label for="inurlCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"> <code>inurl:</code> <span class="text-gray-500 font-normal">- Cari kata di dalam URL</span> </label>
+          <div id="panel-tepat" class="tab-panel hidden">
+            <p class="text-center text-gray-500">Operator untuk pencarian tepat & ekstra akan muncul di sini.</p>
+          </div>
+
+          <div id="panel-lanjutan" class="tab-panel hidden">
+            <p class="text-center text-gray-500">Operator tingkat lanjut akan muncul di sini.</p>
           </div>
         </div>
 
@@ -49,13 +69,10 @@
           <label for="hasilDork" class="text-lg font-semibold text-gray-700">Hasil Dork</label>
           <textarea id="hasilDork" readonly class="w-full p-4 h-24 border-2 border-gray-300 font-mono rounded-lg resize-none" placeholder="Hasilnya akan muncul di sini..."></textarea>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <button id="tombolSalin" class="w-full py-3 px-4 bg-blue-600 text-white font-bold text-lg rounded-lg hover:bg-blue-700 transition">Salin</button>
           <button id="tombolCari" class="w-full py-3 px-4 bg-green-600 text-white font-bold text-lg rounded-lg hover:bg-green-700 transition">Cari di Google</button>
         </div>
-
-        <p class="text-xs text-center text-gray-500 pt-4">Gunakan tool ini dengan bijak dan untuk tujuan yang etis.</p>
       </div>
     </div>
 
