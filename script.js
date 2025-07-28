@@ -2,7 +2,6 @@
 window.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.tab-button');
   const panels = document.querySelectorAll('.tab-panel');
-
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       tabs.forEach((item) => {
@@ -10,56 +9,65 @@ window.addEventListener('DOMContentLoaded', () => {
         item.classList.add('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
       });
       tab.classList.add('text-blue-600', 'border-blue-600');
-      tab.classList.remove('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
       panels.forEach((panel) => panel.classList.add('hidden'));
       const targetPanelId = tab.id.replace('tab-', 'panel-');
-      const targetPanel = document.getElementById(targetPanelId);
-      if (targetPanel) {
-        targetPanel.classList.remove('hidden');
-      }
+      document.getElementById(targetPanelId)?.classList.remove('hidden');
     });
   });
 });
-// --- AKHIR FUNGSI TAB ---
 
 // --- 1. Seleksi Semua Elemen Interaktif ---
-// Bagian ini jadi lebih panjang karena ada elemen baru
 const keywordInput = document.getElementById('keywordInput');
 const hasilDork = document.getElementById('hasilDork');
 const tombolSalin = document.getElementById('tombolSalin');
 const tombolCari = document.getElementById('tombolCari');
 
-// Operator di Tab Dasar
-const siteCheckbox = document.getElementById('siteCheckbox');
-const siteInput = document.getElementById('siteInput');
-const filetypeCheckbox = document.getElementById('filetypeCheckbox'); // BARU
-const filetypeInput = document.getElementById('filetypeInput'); // BARU
-const intitleCheckbox = document.getElementById('intitleCheckbox'); // BARU
+// Operator Tab Dasar
+const siteCheckbox = document.getElementById('siteCheckbox'),
+  siteInput = document.getElementById('siteInput');
+const filetypeCheckbox = document.getElementById('filetypeCheckbox'),
+  filetypeInput = document.getElementById('filetypeInput');
+const intitleCheckbox = document.getElementById('intitleCheckbox');
+
+// Operator Tab Tepat & Ekstra
+const exactCheckbox = document.getElementById('exactCheckbox');
+const excludeCheckbox = document.getElementById('excludeCheckbox'),
+  excludeInput = document.getElementById('excludeInput');
+const wildcardCheckbox = document.getElementById('wildcardCheckbox');
+
+// Operator Tab Lanjutan (BARU)
+const intextCheckbox = document.getElementById('intextCheckbox');
+const relatedCheckbox = document.getElementById('relatedCheckbox'),
+  relatedInput = document.getElementById('relatedInput');
+const cacheCheckbox = document.getElementById('cacheCheckbox'),
+  cacheInput = document.getElementById('cacheInput');
 
 // --- 2. Pasang "Mata-mata" (Event Listeners) ---
 keywordInput.addEventListener('input', generateDork);
-
-// Listener untuk operator Tab Dasar
-siteInput.addEventListener('input', generateDork);
-siteCheckbox.addEventListener('change', () => {
-  handleDependentInput(siteCheckbox, siteInput);
-});
-
-filetypeInput.addEventListener('input', generateDork); // BARU
-filetypeCheckbox.addEventListener('change', () => {
-  // BARU
-  handleDependentInput(filetypeCheckbox, filetypeInput);
-});
-
-intitleCheckbox.addEventListener('change', generateDork); // BARU
-
-// Listener untuk tombol aksi
 tombolSalin.addEventListener('click', salinKeClipboard);
 tombolCari.addEventListener('click', cariDiGoogle);
 
-// --- 3. Fungsi-Fungsi Aplikasi ---
+// Listeners Tab Dasar
+siteInput.addEventListener('input', generateDork);
+siteCheckbox.addEventListener('change', () => handleDependentInput(siteCheckbox, siteInput));
+filetypeInput.addEventListener('input', generateDork);
+filetypeCheckbox.addEventListener('change', () => handleDependentInput(filetypeCheckbox, filetypeInput));
+intitleCheckbox.addEventListener('change', generateDork);
 
-// Fungsi Bantuan untuk input yang bergantung pada checkbox
+// Listeners Tab Tepat & Ekstra
+exactCheckbox.addEventListener('change', generateDork);
+excludeInput.addEventListener('input', generateDork);
+excludeCheckbox.addEventListener('change', () => handleDependentInput(excludeCheckbox, excludeInput));
+wildcardCheckbox.addEventListener('change', generateDork);
+
+// Listeners Tab Lanjutan (BARU)
+intextCheckbox.addEventListener('change', generateDork);
+relatedInput.addEventListener('input', generateDork);
+relatedCheckbox.addEventListener('change', () => handleDependentInput(relatedCheckbox, relatedInput));
+cacheInput.addEventListener('input', generateDork);
+cacheCheckbox.addEventListener('change', () => handleDependentInput(cacheCheckbox, cacheInput));
+
+// --- 3. Fungsi-Fungsi Aplikasi ---
 function handleDependentInput(checkbox, input) {
   if (checkbox.checked) {
     input.disabled = false;
@@ -68,41 +76,36 @@ function handleDependentInput(checkbox, input) {
     input.disabled = true;
     input.value = '';
   }
-  generateDork(); // Panggil generateDork setiap kali status berubah
+  generateDork();
 }
 
-// Fungsi Otak Aplikasi (Sudah di-upgrade)
 function generateDork() {
   let keyword = keywordInput.value;
   const dorkParts = [];
 
-  if (keyword) {
-    dorkParts.push(keyword);
-  }
+  if (exactCheckbox.checked && keyword) keyword = `"${keyword}"`;
+  if (keyword) dorkParts.push(keyword);
+  if (wildcardCheckbox.checked && keyword) dorkParts[dorkParts.length - 1] += ' *';
 
-  // Logika untuk site:
-  if (siteCheckbox.checked && siteInput.value) {
-    dorkParts.push(`site:${siteInput.value}`);
-  }
+  // Operator Dasar
+  if (siteCheckbox.checked && siteInput.value) dorkParts.push(`site:${siteInput.value}`);
+  if (filetypeCheckbox.checked && filetypeInput.value) dorkParts.push(`filetype:${filetypeInput.value}`);
+  if (intitleCheckbox.checked && keywordInput.value) dorkParts.push(`intitle:"${keywordInput.value}"`);
 
-  // Logika untuk filetype: (BARU)
-  if (filetypeCheckbox.checked && filetypeInput.value) {
-    dorkParts.push(`filetype:${filetypeInput.value}`);
-  }
+  // Operator Tepat & Ekstra
+  if (excludeCheckbox.checked && excludeInput.value) dorkParts.push(`-${excludeInput.value}`);
 
-  // Logika untuk intitle: (BARU)
-  if (intitleCheckbox.checked && keyword) {
-    dorkParts.push(`intitle:"${keyword}"`); // Kita pake tanda kutip biar lebih akurat
-  }
+  // Operator Lanjutan (BARU)
+  if (intextCheckbox.checked && keywordInput.value) dorkParts.push(`intext:"${keywordInput.value}"`);
+  if (relatedCheckbox.checked && relatedInput.value) dorkParts.push(`related:${relatedInput.value}`);
+  if (cacheCheckbox.checked && cacheInput.value) dorkParts.push(`cache:${cacheInput.value}`);
 
   hasilDork.value = dorkParts.join(' ');
 }
 
-// Fungsi untuk Tombol Salin
 function salinKeClipboard() {
   const teksUntukDisalin = hasilDork.value;
   if (!teksUntukDisalin) return;
-
   navigator.clipboard
     .writeText(teksUntukDisalin)
     .then(() => {
@@ -117,7 +120,6 @@ function salinKeClipboard() {
     .catch((err) => console.error('Gagal menyalin teks: ', err));
 }
 
-// Fungsi untuk Tombol Cari di Google
 function cariDiGoogle() {
   const dork = hasilDork.value;
   if (!dork) return;
@@ -126,5 +128,4 @@ function cariDiGoogle() {
   window.open(googleUrl, '_blank');
 }
 
-// Panggil fungsi sekali di awal untuk inisialisasi
 generateDork();
