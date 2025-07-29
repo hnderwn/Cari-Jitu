@@ -3,118 +3,191 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dorking Helper</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-      /* Bisa buat nambahin custom style kecil-kecilan nanti */
-    </style>
+    <title>Cari Jitu! - Dorking Helper</title>
+    <link href="/dist/output.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
   </head>
-  <body>
-    <div class="bg-gray-100 min-h-screen flex items-center justify-center font-sans">
-      <div class="w-full max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-6">
-        <div class="text-center">
-          <h1 class="text-3xl font-bold text-gray-800">Cari Jitu!</h1>
-          <p class="text-gray-500">Bikin pencarian Google-mu lebih jitu!</p>
 
-          <a href="dokumentasi.html" class="text-sm text-blue-600 hover:underline mt-2 inline-block">Pelajari Dorking & Etika Penggunaan</a>
+  <body class="bg-neutral-100 dark:bg-neutral-900 font-[Inter,sans-serif] transition-colors duration-300">
+    <div class="min-h-screen flex items-center justify-center p-4">
+      <div class="w-full max-w-md mx-auto dark:bg-neutral-900 bg-neutral-100 rounded-2xl shadow-lg space-y-6 p-6 sm:p-8">
+        <div class="relative text-center">
+          <h1 class="text-3xl font-bold text-neutral-700 dark:text-neutral-200">Cari Jitu!</h1>
+          <p class="text-neutral-500 dark:text-neutral-400">Bikin pencarian Google-mu lebih jitu!</p>
+          <a href="dokumentasi.html" class="text-sm text-primary-500 dark:text-primary-400 hover:underline mt-2 inline-block">Pelajari Dorking</a>
+          <div class="absolute top-0 right-0">
+            <button id="theme-toggle" class="p-2 rounded-full text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700"></button>
+          </div>
         </div>
 
         <div class="space-y-2">
-          <label for="keywordInput" class="text-lg font-semibold text-gray-700">Kata Kunci Utama</label>
-          <input type="text" id="keywordInput" placeholder="laporan keuangan, jurnal ilmiah, ..." class="w-full p-4 text-lg border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition" />
+          <label for="keywordInput" class="text-lg font-semibold text-neutral-700 dark:text-neutral-200">Kata Kunci Utama</label>
+          <input
+            type="text"
+            id="keywordInput"
+            placeholder="laporan keuangan, jurnal ilmiah, ..."
+            class="w-full p-4 text-lg bg-neutral-100 dark:bg-neutral-900 border-2 border-neutral-200 dark:border-neutral-700 rounded-lg text-neutral-700 dark:text-neutral-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/50 transition"
+          />
         </div>
 
-        <div class="border-b border-gray-200">
-          <nav class="flex space-x-4" aria-label="Tabs">
-            <button id="tab-dasar" class="tab-button text-blue-600 border-blue-600 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Dasar</button>
-            <button id="tab-tepat" class="tab-button text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Tepat & Ekstra</button>
-            <button id="tab-lanjutan" class="tab-button text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Lanjutan</button>
+        <div class="p-1 bg-neutral-100 dark:bg-neutral-900 rounded-xl">
+          <nav class="flex space-x-1" aria-label="Tabs">
+            <button id="tab-dasar" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm">Dasar</button>
+            <button id="tab-tepat" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm">Tepat & Ekstra</button>
+            <button id="tab-lanjutan" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm">Lanjutan</button>
           </nav>
         </div>
 
-        <div id="panel-container" class="pt-4">
+        <div id="panel-container" class="pt-2">
           <div id="panel-dasar" class="tab-panel space-y-3">
-            <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
+            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
               <div class="flex items-center">
-                <input id="siteCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                <label for="siteCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"><code>site:</code><span class="text-gray-500 font-normal"> - Cari di website tertentu</span></label>
+                <input id="siteCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="siteCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>site:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari di website tertentu</span>
+                </label>
               </div>
-              <input type="text" id="siteInput" placeholder="contoh: kompas.com" class="w-full p-2 border rounded-md transition disabled:bg-gray-200" disabled />
+              <input
+                type="text"
+                id="siteInput"
+                placeholder="contoh: kompas.com"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
             </div>
-            <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
+
+            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
               <div class="flex items-center">
-                <input id="filetypeCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                <label for="filetypeCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"><code>filetype:</code><span class="text-gray-500 font-normal"> - Cari jenis file tertentu</span></label>
+                <input id="filetypeCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="filetypeCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>filetype:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari jenis file tertentu</span>
+                </label>
               </div>
-              <input type="text" id="filetypeInput" placeholder="contoh: pdf, docx, xls" class="w-full p-2 border rounded-md transition disabled:bg-gray-200" disabled />
+              <input
+                type="text"
+                id="filetypeInput"
+                placeholder="contoh: pdf, docx, xls"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
             </div>
-            <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
+
+            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
               <div class="flex items-center">
-                <input id="intitleCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                <label for="intitleCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"><code>intitle:</code><span class="text-gray-500 font-normal"> - Cari kata di dalam judul</span></label>
+                <input id="intitleCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="intitleCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>intitle:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari kata di dalam judul</span>
+                </label>
               </div>
             </div>
           </div>
 
           <div id="panel-tepat" class="tab-panel hidden space-y-3">
-            <div class="p-4 bg-gray-50 border rounded-lg">
+            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
               <div class="flex items-center">
-                <input id="exactCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                <label for="exactCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"> <code>"..."</code><span class="text-gray-500 font-normal"> - Cari frasa yang sama persis</span> </label>
+                <input id="exactCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="exactCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>"..."</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari frasa yang sama persis</span>
+                </label>
               </div>
+            </div>
 
-              <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
-                <div class="flex items-center">
-                  <input id="excludeCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                  <label for="excludeCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"> <code>-</code><span class="text-gray-500 font-normal"> - Abaikan kata tertentu</span> </label>
-                </div>
-                <input type="text" id="excludeInput" placeholder="contoh: wikipedia" class="w-full p-2 border rounded-md transition disabled:bg-gray-200" disabled />
+            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+              <div class="flex items-center">
+                <input id="excludeCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="excludeCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>-</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Abaikan kata tertentu</span>
+                </label>
               </div>
+              <input
+                type="text"
+                id="excludeInput"
+                placeholder="contoh: wikipedia"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
+            </div>
 
-              <div class="p-4 bg-gray-50 border rounded-lg">
-                <div class="flex items-center">
-                  <input id="wildcardCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                  <label for="wildcardCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"> <code>*</code><span class="text-gray-500 font-normal"> - Gunakan sebagai wildcard</span> </label>
-                </div>
+            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+              <div class="flex items-center">
+                <input id="wildcardCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="wildcardCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>*</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Gunakan sebagai wildcard</span>
+                </label>
               </div>
             </div>
           </div>
 
           <div id="panel-lanjutan" class="tab-panel hidden space-y-3">
-            <div class="p-4 bg-gray-50 border rounded-lg">
+            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
               <div class="flex items-center">
-                <input id="intextCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                <label for="intextCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"> <code>intext:</code><span class="text-gray-500 font-normal"> - Cari kata di dalam isi halaman</span> </label>
+                <input id="intextCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="intextCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>intext:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari kata di dalam isi halaman</span>
+                </label>
               </div>
             </div>
 
-            <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
+            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
               <div class="flex items-center">
-                <input id="relatedCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                <label for="relatedCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"> <code>related:</code><span class="text-gray-500 font-normal"> - Cari situs yang mirip/terkait</span> </label>
+                <input id="relatedCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="relatedCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>related:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari situs yang mirip/terkait</span>
+                </label>
               </div>
-              <input type="text" id="relatedInput" placeholder="contoh: shopee.co.id" class="w-full p-2 border rounded-md transition disabled:bg-gray-200" disabled />
+              <input
+                type="text"
+                id="relatedInput"
+                placeholder="contoh: shopee.co.id"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
             </div>
 
-            <div class="p-4 bg-gray-50 border rounded-lg space-y-2">
+            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
               <div class="flex items-center">
-                <input id="cacheCheckbox" type="checkbox" class="h-6 w-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                <label for="cacheCheckbox" class="ml-4 flex-1 text-md font-medium text-gray-900 cursor-pointer"> <code>cache:</code><span class="text-gray-500 font-normal"> - Lihat versi cache dari situs</span> </label>
+                <input id="cacheCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="cacheCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>cache:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Lihat versi cache dari situs</span>
+                </label>
               </div>
-              <input type="text" id="cacheInput" placeholder="contoh: detik.com" class="w-full p-2 border rounded-md transition disabled:bg-gray-200" disabled />
+              <input
+                type="text"
+                id="cacheInput"
+                placeholder="contoh: detik.com"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
             </div>
           </div>
         </div>
 
         <div class="space-y-2">
-          <label for="hasilDork" class="text-lg font-semibold text-gray-700">Hasil Dork</label>
-          <textarea id="hasilDork" readonly class="w-full p-4 h-24 border-2 border-gray-300 font-mono rounded-lg resize-none" placeholder="Hasilnya akan muncul di sini..."></textarea>
+          <label for="hasilDork" class="text-lg font-semibold text-neutral-700 dark:text-neutral-200">Hasil Dork</label>
+          <textarea
+            id="hasilDork"
+            readonly
+            class="w-full p-4 h-24 bg-neutral-100 dark:bg-neutral-700 border-2 border-neutral-200 dark:border-neutral-600 font-mono rounded-lg resize-none text-neutral-700 dark:text-neutral-200"
+            placeholder="Hasilnya akan muncul di sini..."
+          ></textarea>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <button id="tombolSalin" class="w-full py-3 px-4 bg-blue-600 text-white font-bold text-lg rounded-lg hover:bg-blue-700 transition">Salin</button>
-          <button id="tombolCari" class="w-full py-3 px-4 bg-green-600 text-white font-bold text-lg rounded-lg hover:bg-green-700 transition">Cari di Google</button>
+          <button id="tombolSalin" class="w-full py-3 px-4 bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold text-lg rounded-lg transition-colors duration-200">Salin</button>
+          <button id="tombolCari" class="w-full py-3 px-4 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-800 dark:text-neutral-100 font-bold text-lg rounded-lg transition-colors duration-200">
+            Cari di Google
+          </button>
         </div>
       </div>
     </div>

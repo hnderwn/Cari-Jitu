@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  /* =========================================
+     PALET SEMANTIK DENGAN NAMESPACE v4 (THE REAL FINAL WAY)
+     ========================================= */
+
+  /* Warna Netral - Buat background, teks, border, dll. */
+  --color-neutral-100: #f1f5f9; /* Contoh: bg terang */
+  --color-neutral-200: #e2e8f0; /* Contoh: border terang */
+  --color-neutral-500: #64748b; /* Contoh: teks sekunder terang */
+  --color-neutral-700: #334155; /* Contoh: teks utama terang, border gelap */
+  --color-neutral-800: #1e293b; /* Contoh: surface gelap */
+  --color-neutral-900: #0f172a; /* Contoh: bg gelap */
+
+  /* Warna Aksen Primer - Buat tombol, link, fokus, dll. */
+  --color-primary-400: #38bdf8; /* Contoh: aksen di mode gelap */
+  --color-primary-500: #0ea5e9; /* Contoh: aksen di mode terang */
+  --color-primary-600: #0284c7; /* Contoh: hover di mode terang */
+}
