@@ -1,11 +1,41 @@
-// script.js
-
 // --- FUNGSI UNTUK TAB (Versi Desain Baru) ---
 window.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('.tab-button');
   const panels = document.querySelectorAll('.tab-panel');
-  const activeClasses = ['bg-[--color-accent-primary]', 'text-white', 'shadow'];
-  const inactiveClasses = ['text-[--color-text-muted]', 'hover:bg-[--color-bg-surface]'];
+  const activeClasses = ['bg-primary-600', 'shadow', 'text-white'];
+  const inactiveClasses = ['text-color-text-muted', 'hover:bg-color-bg-surface'];
+
+  // Fungsi untuk mengatur tampilan panel berdasarkan ukuran layar
+  function applyPanelLayout() {
+    // Cek lebar layar
+    const isLargeScreen = window.matchMedia('(min-width: 1024px)').matches; // Sesuai dengan breakpoint 'lg' Tailwind
+
+    panels.forEach((panel) => {
+      // Hapus semua display terkait dulu agar bersih
+      panel.style.display = ''; // Reset display style
+      panel.classList.remove('grid', 'grid-cols-2', 'gap-4'); // Hapus kelas grid jika ada
+    });
+
+    // Terapkan layout tab normal untuk mobile
+    // Sembunyikan semua kecuali yang aktif
+    panels.forEach((panel) => panel.classList.add('hidden'));
+
+    // Aktifkan panel pertama saat dimuat atau saat switchTab dipanggil
+    const currentActiveTab = document.querySelector('.tab-button.bg-[--color-accent-primary]');
+    const targetPanelId = currentActiveTab ? currentActiveTab.id.replace('tab-', 'panel-') : tabs[0].id.replace('tab-', 'panel-');
+    const activePanel = document.getElementById(targetPanelId);
+
+    if (activePanel) {
+      activePanel.classList.remove('hidden'); // Selalu tampilkan yang aktif
+
+      // Tambahkan grid hanya jika layar besar
+      if (isLargeScreen) {
+        activePanel.classList.add('grid', 'grid-cols-2', 'gap-4');
+      } else {
+        activePanel.classList.add('space-y-3'); // Kembali ke layout space-y-3 untuk mobile
+      }
+    }
+  }
 
   function switchTab(tab) {
     // Atur style tombol
@@ -16,10 +46,27 @@ window.addEventListener('DOMContentLoaded', () => {
     tab.classList.add(...activeClasses);
     tab.classList.remove(...inactiveClasses);
 
-    // Atur panel yang ditampilkan
-    panels.forEach((panel) => panel.classList.add('hidden'));
+    // Atur panel yang ditampilkan (gunakan fungsi applyPanelLayout untuk mengatur display)
+    panels.forEach((panel) => {
+      panel.classList.add('hidden'); // Sembunyikan semua panel
+      panel.classList.remove('grid', 'grid-cols-2', 'gap-4'); // Hapus grid dari yang lain
+      panel.classList.add('space-y-3'); // Pastikan space-y-3 untuk yang hidden
+    });
+
     const targetPanelId = tab.id.replace('tab-', 'panel-');
-    document.getElementById(targetPanelId)?.classList.remove('hidden');
+    const activePanel = document.getElementById(targetPanelId);
+
+    if (activePanel) {
+      activePanel.classList.remove('hidden'); // Munculkan panel aktif
+
+      // Terapkan grid hanya jika layar besar
+      if (window.matchMedia('(min-width: 1024px)').matches) {
+        activePanel.classList.add('grid', 'grid-cols-2', 'gap-4');
+        activePanel.classList.remove('space-y-3'); // Hapus space-y-3 jika pakai grid
+      } else {
+        activePanel.classList.add('space-y-3'); // Pastikan space-y-3 untuk mobile
+      }
+    }
   }
 
   tabs.forEach((tab) => {
@@ -28,8 +75,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Otomatis aktifkan tab pertama saat halaman dimuat
   if (tabs.length > 0) {
-    switchTab(tabs[0]);
+    // Set tab pertama aktif secara visual
+    tabs[0].classList.add(...activeClasses);
+    tabs[0].classList.remove(...inactiveClasses);
+
+    // Terapkan layout awal
+    applyPanelLayout(); // Panggil fungsi ini untuk pertama kali
   }
+
+  // Tambahkan event listener untuk resize window
+  window.addEventListener('resize', applyPanelLayout);
 });
 // --- AKHIR FUNGSI TAB ---
 

@@ -1,20 +1,38 @@
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
-  /* =========================================
-     PALET SEMANTIK DENGAN NAMESPACE v4 (THE REAL FINAL WAY)
-     ========================================= */
+  --color-neutral-100: #f0f4f8; /* Light Mode Background */
+  --color-neutral-200: #e2e8f0; /* Light Mode Border/Surface */
+  --color-neutral-500: #64748b; /* Muted Text/Secondary */
+  --color-neutral-700: #34445a; /* Primary Text Light Mode */
+  --color-neutral-800: #1e2b3c; /* Dark Mode Surface/Input */
+  --color-neutral-900: #0e1621; /* Dark Mode Background */
 
-  /* Warna Netral - Buat background, teks, border, dll. */
-  --color-neutral-100: #f1f5f9; /* Contoh: bg terang */
-  --color-neutral-200: #e2e8f0; /* Contoh: border terang */
-  --color-neutral-500: #64748b; /* Contoh: teks sekunder terang */
-  --color-neutral-700: #334155; /* Contoh: teks utama terang, border gelap */
-  --color-neutral-800: #1e293b; /* Contoh: surface gelap */
-  --color-neutral-900: #0f172a; /* Contoh: bg gelap */
-
-  /* Warna Aksen Primer - Buat tombol, link, fokus, dll. */
-  --color-primary-400: #38bdf8; /* Contoh: aksen di mode gelap */
-  --color-primary-500: #0ea5e9; /* Contoh: aksen di mode terang */
-  --color-primary-600: #0284c7; /* Contoh: hover di mode terang */
+  /* Warna Aksen Primer - Cyan/Turquoise yang modern dan punchy */
+  --color-primary-400: #2ee5d1; /* Aksen di Dark Mode */
+  --color-primary-500: #00bcd4; /* Aksen Utama */
+  --color-primary-600: #00a5b7; /* Hover State */
 }
+
+/* Pastikan di input.css atau config Tailwind v4 lo */
+.btn-primary {
+  @apply transition-colors duration-200;
+}
+.input-field {
+  @apply transition-colors duration-200;
+}
+
+.tab-button {
+  @apply transition-colors duration-300;
+}
+.tab-button.tab-active {
+  @apply transition-colors duration-300;
+}
+.card-operator {
+  @apply p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2 transition-all duration-200 hover:shadow-lg hover:border-primary-500;
+}
+
+input[type='checkbox'] {
+  @apply transition-colors duration-300 ease-in-out;
+}
+

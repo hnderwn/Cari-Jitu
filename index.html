@@ -12,7 +12,7 @@
 
   <body class="bg-neutral-100 dark:bg-neutral-900 font-[Inter,sans-serif] transition-colors duration-300">
     <div class="min-h-screen flex items-center justify-center p-4">
-      <div class="w-full max-w-md mx-auto dark:bg-neutral-900 bg-neutral-100 rounded-2xl shadow-lg space-y-6 p-6 sm:p-8">
+      <div class="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-screen-lg mx-auto dark:bg-neutral-900 bg-neutral-100 rounded-2xl space-y-6 p-6 sm:p-8">
         <div class="relative text-center">
           <h1 class="text-3xl font-bold text-neutral-700 dark:text-neutral-200">Cari Jitu!</h1>
           <p class="text-neutral-500 dark:text-neutral-400">Bikin pencarian Google-mu lebih jitu!</p>
@@ -34,15 +34,15 @@
 
         <div class="p-1 bg-neutral-100 dark:bg-neutral-900 rounded-xl">
           <nav class="flex space-x-1" aria-label="Tabs">
-            <button id="tab-dasar" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm">Dasar</button>
-            <button id="tab-tepat" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm">Tepat & Ekstra</button>
-            <button id="tab-lanjutan" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm">Lanjutan</button>
+            <button id="tab-dasar" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm dark:text-white">Dasar</button>
+            <button id="tab-tepat" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm dark:text-white">Tepat & Ekstra</button>
+            <button id="tab-lanjutan" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm dark:text-white">Lanjutan</button>
           </nav>
         </div>
 
         <div id="panel-container" class="pt-2">
           <div id="panel-dasar" class="tab-panel space-y-3">
-            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+            <div class="card-operator">
               <div class="flex items-center">
                 <input id="siteCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
                 <label for="siteCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
@@ -59,7 +59,7 @@
               />
             </div>
 
-            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+            <div class="card-operator">
               <div class="flex items-center">
                 <input id="filetypeCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
                 <label for="filetypeCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
@@ -76,7 +76,7 @@
               />
             </div>
 
-            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+            <div class="card-operator">
               <div class="flex items-center">
                 <input id="intitleCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
                 <label for="intitleCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
@@ -88,7 +88,7 @@
           </div>
 
           <div id="panel-tepat" class="tab-panel hidden space-y-3">
-            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+            <div class="card-operator">
               <div class="flex items-center">
                 <input id="exactCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
                 <label for="exactCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
@@ -98,7 +98,7 @@
               </div>
             </div>
 
-            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+            <div class="card-operator">
               <div class="flex items-center">
                 <input id="excludeCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
                 <label for="excludeCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
@@ -115,7 +115,7 @@
               />
             </div>
 
-            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+            <div class="card-operator">
               <div class="flex items-center">
                 <input id="wildcardCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
                 <label for="wildcardCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
@@ -127,7 +127,7 @@
           </div>
 
           <div id="panel-lanjutan" class="tab-panel hidden space-y-3">
-            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+            <div class="card-operator">
               <div class="flex items-center">
                 <input id="intextCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
                 <label for="intextCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
@@ -137,7 +137,7 @@
               </div>
             </div>
 
-            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+            <div class="card-operator">
               <div class="flex items-center">
                 <input id="relatedCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
                 <label for="relatedCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
@@ -154,7 +154,7 @@
               />
             </div>
 
-            <div class="p-4 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-lg space-y-2">
+            <div class="card-operator">
               <div class="flex items-center">
                 <input id="cacheCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
                 <label for="cacheCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
@@ -184,8 +184,13 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <button id="tombolSalin" class="w-full py-3 px-4 bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold text-lg rounded-lg transition-colors duration-200">Salin</button>
-          <button id="tombolCari" class="w-full py-3 px-4 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-800 dark:text-neutral-100 font-bold text-lg rounded-lg transition-colors duration-200">
+          <button id="tombolSalin" class="w-full py-3 px-4 bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold text-lg rounded-lg transition-all duration-200 hover:scale-[1.01]">
+            Salin
+          </button>
+          <button
+            id="tombolCari"
+            class="w-full py-3 px-4 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-800 dark:text-neutral-100 font-bold text-lg rounded-lg transition-all duration-200 hover:scale-[1.01]"
+          >
             Cari di Google
           </button>
         </div>
