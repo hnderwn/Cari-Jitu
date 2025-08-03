@@ -22,6 +22,44 @@
           </div>
         </div>
 
+        <div id="template-container" class="relative">
+          <button
+            id="template-button"
+            class="w-full flex justify-between items-center text-left p-3 bg-neutral-100 dark:bg-neutral-700 border-2 border-neutral-200 dark:border-neutral-600 rounded-lg text-neutral-500 dark:text-neutral-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/50"
+          >
+            <span class="font-medium">Pilih Template Dork... (opsional)</span>
+            <svg id="template-arrow" class="w-5 h-5 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </button>
+          <div id="template-menu" class="absolute hidden w-full mt-2 bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 z-10 p-2 max-h-60 overflow-y-auto">
+            <div>
+              <h3 class="px-3 py-2 text-xs font-bold uppercase text-neutral-500 dark:text-neutral-400">Untuk Mahasiswa</h3>
+              <a href="#" class="template-item block px-3 py-2 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md" data-keyword="jurnal" data-operators='{"filetype": "pdf", "site": ".ac.id"}'>
+                Cari Jurnal (.pdf) di Situs Kampus
+              </a>
+              <a href="#" class="template-item block px-3 py-2 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md" data-keyword="lowongan magang" data-operators='{"intitle": true}'>
+                Cari Info Magang dari Judul
+              </a>
+            </div>
+
+            <div class="mt-2">
+              <h3 class="px-3 py-2 text-xs font-bold uppercase text-neutral-500 dark:text-neutral-400">Untuk Profesional / Expert</h3>
+              <a href="#" class="template-item block px-3 py-2 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md" data-keyword="" data-operators='{"intitle": "index of /", "exclude": "html"}'>
+                Temukan Direktori Terbuka
+              </a>
+              <a
+                href="#"
+                class="template-item block px-3 py-2 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md"
+                data-keyword="laporan keuangan"
+                data-operators='{"filetype": "xlsx OR pdf", "exact": true}'
+              >
+                Laporan Keuangan (.xlsx atau .pdf)
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div class="space-y-2">
           <label for="keywordInput" class="text-lg font-semibold text-neutral-700 dark:text-neutral-200">Kata Kunci Utama</label>
           <input
@@ -34,14 +72,14 @@
 
         <div class="p-1 bg-neutral-100 dark:bg-neutral-900 rounded-xl">
           <nav class="flex space-x-1" aria-label="Tabs">
-            <button id="tab-dasar" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm dark:text-white">Dasar</button>
-            <button id="tab-tepat" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm dark:text-white">Tepat & Ekstra</button>
-            <button id="tab-lanjutan" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm dark:text-white">Lanjutan</button>
+            <button id="tab-dasar" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm dark:text-white duration-200  transition-all active:scale-95">Dasar</button>
+            <button id="tab-tepat" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm dark:text-white duration-200  transition-all active:scale-95">Tepat & Ekstra</button>
+            <button id="tab-lanjutan" class="tab-button w-full px-3 py-2 rounded-lg font-medium text-sm dark:text-white duration-200  transition-all active:scale-95">Lanjutan</button>
           </nav>
         </div>
 
         <div id="panel-container" class="pt-2">
-          <div id="panel-dasar" class="tab-panel space-y-3">
+          <div id="panel-dasar" class="tab-panel space-y-3 transition-opacity duration-300 ease-in-out">
             <div class="card-operator">
               <div class="flex items-center">
                 <input id="siteCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
@@ -49,6 +87,18 @@
                   <code>site:</code>
                   <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari di website tertentu</span>
                 </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari hanya di dalam domain atau website spesifik.
+                  </span>
+                </div>
               </div>
               <input
                 type="text"
@@ -66,6 +116,18 @@
                   <code>filetype:</code>
                   <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari jenis file tertentu</span>
                 </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Membatasi pencarian hanya untuk jenis file tertentu. Contoh: filetype:pdf
+                  </span>
+                </div>
               </div>
               <input
                 type="text"
@@ -83,11 +145,23 @@
                   <code>intitle:</code>
                   <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari kata di dalam judul</span>
                 </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari kata kunci yang muncul di dalam judul halaman web.
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div id="panel-tepat" class="tab-panel hidden space-y-3">
+          <div id="panel-tepat" class="tab-panel hidden space-y-3 transition-opacity duration-300 ease-in-out">
             <div class="card-operator">
               <div class="flex items-center">
                 <input id="exactCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
@@ -95,6 +169,18 @@
                   <code>"..."</code>
                   <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari frasa yang sama persis</span>
                 </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari frasa yang sama persis, termasuk urutan katanya. Sangat berguna untuk hasil yang akurat.
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -105,6 +191,18 @@
                   <code>-</code>
                   <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Abaikan kata tertentu</span>
                 </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mengecualikan atau mengabaikan kata tertentu dari hasil pencarian.
+                  </span>
+                </div>
               </div>
               <input
                 type="text"
@@ -122,11 +220,23 @@
                   <code>*</code>
                   <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Gunakan sebagai wildcard</span>
                 </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Berfungsi sebagai wildcard atau 'kata apa saja'. Berguna untuk melengkapi frasa yang tidak lengkap.
+                  </span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div id="panel-lanjutan" class="tab-panel hidden space-y-3">
+          <div id="panel-lanjutan" class="tab-panel hidden space-y-3 transition-opacity duration-300 ease-in-out">
             <div class="card-operator">
               <div class="flex items-center">
                 <input id="intextCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
@@ -134,6 +244,18 @@
                   <code>intext:</code>
                   <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari kata di dalam isi halaman</span>
                 </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari kata kunci yang muncul di mana saja di dalam konten/isi halaman.
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -144,6 +266,18 @@
                   <code>related:</code>
                   <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari situs yang mirip/terkait</span>
                 </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Menemukan situs web yang mirip atau terkait dengan situs yang dimasukkan. Contoh: related:tokopedia.com
+                  </span>
+                </div>
               </div>
               <input
                 type="text"
@@ -161,6 +295,18 @@
                   <code>cache:</code>
                   <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Lihat versi cache dari situs</span>
                 </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Menampilkan versi halaman web yang disimpan di cache Google, bukan versi live-nya.
+                  </span>
+                </div>
               </div>
               <input
                 type="text"
@@ -184,12 +330,15 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <button id="tombolSalin" class="w-full py-3 px-4 bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold text-lg rounded-lg transition-all duration-200 hover:scale-[1.01]">
+          <button
+            id="tombolSalin"
+            class="w-full py-3 px-4 bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-bold text-lg rounded-lg transition-all duration-200 hover:scale-[1.01] active:scale-95"
+          >
             Salin
           </button>
           <button
             id="tombolCari"
-            class="w-full py-3 px-4 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-800 dark:text-neutral-100 font-bold text-lg rounded-lg transition-all duration-200 hover:scale-[1.01]"
+            class="w-full py-3 px-4 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-800 dark:text-neutral-100 font-bold text-lg rounded-lg transition-all duration-200 hover:scale-[1.01] active:scale-95"
           >
             Cari di Google
           </button>

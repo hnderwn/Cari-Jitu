@@ -38,7 +38,11 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function switchTab(tab) {
-    // Atur style tombol
+    // Bagian styling tombol (tidak berubah)
+    const tabs = document.querySelectorAll('.tab-button');
+    const activeClasses = ['bg-primary-600', 'shadow', 'text-white'];
+    const inactiveClasses = ['text-neutral-500', 'dark:text-neutral-400', 'hover:bg-neutral-200', 'dark:hover:bg-neutral-700'];
+
     tabs.forEach((item) => {
       item.classList.remove(...activeClasses);
       item.classList.add(...inactiveClasses);
@@ -46,27 +50,53 @@ window.addEventListener('DOMContentLoaded', () => {
     tab.classList.add(...activeClasses);
     tab.classList.remove(...inactiveClasses);
 
-    // Atur panel yang ditampilkan (gunakan fungsi applyPanelLayout untuk mengatur display)
+    // --- LOGIKA ANIMASI & RESPONSIVE YANG DIGABUNG ---
+    const panels = document.querySelectorAll('.tab-panel');
+    const targetPanel = document.getElementById(tab.id.replace('tab-', 'panel-'));
+    let activePanel = null;
+
+    // Cari panel yang sedang aktif
     panels.forEach((panel) => {
-      panel.classList.add('hidden'); // Sembunyikan semua panel
-      panel.classList.remove('grid', 'grid-cols-2', 'gap-4'); // Hapus grid dari yang lain
-      panel.classList.add('space-y-3'); // Pastikan space-y-3 untuk yang hidden
+      if (!panel.classList.contains('hidden')) {
+        activePanel = panel;
+      }
     });
 
-    const targetPanelId = tab.id.replace('tab-', 'panel-');
-    const activePanel = document.getElementById(targetPanelId);
+    if (activePanel === targetPanel) return;
 
+    // 1. Mulai proses fade-out panel lama
     if (activePanel) {
-      activePanel.classList.remove('hidden'); // Munculkan panel aktif
-
-      // Terapkan grid hanya jika layar besar
-      if (window.matchMedia('(min-width: 1024px)').matches) {
-        activePanel.classList.add('grid', 'grid-cols-2', 'gap-4');
-        activePanel.classList.remove('space-y-3'); // Hapus space-y-3 jika pakai grid
-      } else {
-        activePanel.classList.add('space-y-3'); // Pastikan space-y-3 untuk mobile
-      }
+      activePanel.classList.add('opacity-0');
     }
+
+    // 2. Tunggu animasi fade-out, baru lakukan perubahan layout
+    setTimeout(() => {
+      // Sembunyikan semua panel dan reset stylenya ke default (mobile)
+      panels.forEach((panel) => {
+        panel.classList.add('hidden');
+        panel.classList.remove('grid', 'grid-cols-2', 'gap-4');
+        panel.classList.add('space-y-3');
+      });
+
+      // Tampilkan panel baru (saat ini masih transparan)
+      if (targetPanel) {
+        targetPanel.classList.remove('hidden');
+
+        // --- LOGIKA RESPONSIVE LO YANG KITA MASUKIN LAGI ---
+        if (window.matchMedia('(min-width: 1024px)').matches) {
+          targetPanel.classList.add('grid', 'grid-cols-2', 'gap-4');
+          targetPanel.classList.remove('space-y-3');
+        } else {
+          targetPanel.classList.add('space-y-3');
+        }
+        // --- AKHIR DARI LOGIKA RESPONSIVE ---
+
+        // 3. Mulai proses fade-in panel baru
+        setTimeout(() => {
+          targetPanel.classList.remove('opacity-0');
+        }, 10); // delay kecil untuk memastikan browser siap
+      }
+    }, 150); // Sesuaikan durasi dengan transisi CSS
   }
 
   tabs.forEach((tab) => {
@@ -87,6 +117,74 @@ window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', applyPanelLayout);
 });
 // --- AKHIR FUNGSI TAB ---
+
+// --- LOGIKA UNTUK DORK TEMPLATES ---
+const templateButton = document.getElementById('template-button');
+const templateMenu = document.getElementById('template-menu');
+const templateArrow = document.getElementById('template-arrow');
+const templateItems = document.querySelectorAll('.template-item');
+const templateButtonText = templateButton.querySelector('span');
+
+// Logika buka-tutup menu
+if (templateButton && templateMenu && templateArrow) {
+  templateButton.addEventListener('click', (e) => {
+    e.stopPropagation(); // Mencegah event 'click' window di bawah jalan
+    templateMenu.classList.toggle('hidden');
+    templateArrow.classList.toggle('rotate-180');
+  });
+
+  // Logika untuk menutup menu jika klik di luar
+  window.addEventListener('click', (e) => {
+    if (!templateMenu.classList.contains('hidden') && !templateButton.contains(e.target)) {
+      templateMenu.classList.add('hidden');
+      templateArrow.classList.remove('rotate-180');
+    }
+  });
+}
+
+// Logika saat item template dipilih
+templateItems.forEach((item) => {
+  item.addEventListener('click', (e) => {
+    e.preventDefault(); // Mencegah link default jalan
+
+    const keyword = item.dataset.keyword;
+    const operators = JSON.parse(item.dataset.operators);
+
+    // 1. Reset semua input dan checkbox dulu
+    document.querySelectorAll('input[type="checkbox"]').forEach((cb) => (cb.checked = false));
+    document.querySelectorAll('.tab-panel input[type="text"]').forEach((input) => {
+      input.value = '';
+      input.disabled = true;
+    });
+
+    // 2. Isi keyword utama
+    keywordInput.value = keyword;
+
+    // 3. Atur operator sesuai contekan dari template
+    for (const op in operators) {
+      const checkbox = document.getElementById(`${op}Checkbox`);
+      const input = document.getElementById(`${op}Input`);
+      const value = operators[op];
+
+      if (checkbox) {
+        checkbox.checked = true;
+      }
+
+      if (input && typeof value === 'string') {
+        input.value = value;
+        input.disabled = false;
+      }
+    }
+
+    // 4. Update hasil dork
+    generateDork();
+
+    // 5. Tutup menu dan update teks tombol
+    templateMenu.classList.add('hidden');
+    templateArrow.classList.remove('rotate-180');
+    templateButtonText.textContent = item.textContent.trim();
+  });
+});
 
 // --- 1. Seleksi Semua Elemen Interaktif ---
 const keywordInput = document.getElementById('keywordInput');
