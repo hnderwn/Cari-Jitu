@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tailwind:init": "tailwindcss init",
     "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch",
     "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css",
-    "copy-files": "copyfiles -u 1 ./*.html ./*.js ./src",
+    "copy-files": "copyfiles ./*.html ./*.js ./src",
     "build": "npm run build:css && npm run copy-files"
   },
   "keywords": [],
@@ -16,9 +14,8 @@
   "description": "",
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
-    "tailwindcss": "^4.1.11"
-  },
-  "devDependencies": {
+    "tailwindcss": "^4.1.11",
     "copyfiles": "^2.4.1"
-  }
+  },
+  "devDependencies": {}
 }
