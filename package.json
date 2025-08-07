@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "main": "script.js",
   "scripts": {
-    "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch",
-    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css",
-    "copy-files": "copyfiles ./*.html ./*.js ./src",
-    "build": "npm run build:css && npm run copy-files"
+    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css",
+    "copy:assets": "copyfiles ./*.html ./*.js ./dist",
+    "build": "npm run copy:assets && npm run build:css",
+    "watch:css": "npm run build:css -- --watch",
+    "watch:assets": "onchange \"./*.html\" \"./*.js\" -- npm run copy:assets",
+    "serve": "live-server dist",
+    "dev": "npm run build && concurrently \"npm:watch:*\" \"npm:serve\""
   },
   "keywords": [],
   "author": "",
@@ -14,8 +17,11 @@
   "description": "",
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
-    "tailwindcss": "^4.1.11",
-    "copyfiles": "^2.4.1"
+    "copyfiles": "^2.4.1",
+    "tailwindcss": "^4.1.11"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "onchange": "^7.1.0"
+  }
 }
