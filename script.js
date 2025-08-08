@@ -1,5 +1,4 @@
-// script.js (Versi 2.0 - Refactored & Final Corrected)
-console.log('INI SCRIPT VERSI FINAL REFACTOR!');
+import Tagify from './tagify.esm.js';
 
 const app = {
   // =================================================================
@@ -77,6 +76,33 @@ const app = {
     setup() {
       this.apply(localStorage.getItem('theme') || 'light');
       app.elements.themeToggleBtn.addEventListener('click', () => this.toggle());
+    },
+  },
+
+  tagInputs: {
+    instances: {}, // Buat nyimpen semua instance Tagify yang aktif
+
+    // Fungsi ini akan dipanggil untuk 'menyulap' input jadi Tagify
+    init(inputElement) {
+      if (this.instances[inputElement.id]) return; // Kalo udah ada, jangan bikin lagi
+
+      const placeholder = inputElement.placeholder || 'Ketik lalu tekan Enter...';
+      const tagifyInstance = new Tagify(inputElement, {
+        placeholder: placeholder,
+      });
+
+      tagifyInstance.on('change', () => app.dork.generate());
+      this.instances[inputElement.id] = tagifyInstance;
+      console.log(`Tagify berhasil di-init di #${inputElement.id}`);
+    },
+
+    // Fungsi ini buat 'mengembalikan' Tagify jadi input biasa
+    destroy(inputElement) {
+      if (this.instances[inputElement.id]) {
+        this.instances[inputElement.id].destroy();
+        delete this.instances[inputElement.id];
+        console.log(`Tagify berhasil di-destroy di #${inputElement.id}`);
+      }
     },
   },
 
@@ -186,19 +212,26 @@ const app = {
   dork: {
     handleDependentInput(checkbox, input) {
       input.disabled = !checkbox.checked;
+
       if (checkbox.checked) {
-        input.focus();
+        // Jika checkbox dicentang, SULAP JADI TAGIFY!
+        app.tagInputs.init(input);
+        // Kita fokus ke input di dalam Tagify
+        // Timeout kecil untuk memastikan Tagify sudah render sebelum di-fokus
+        setTimeout(() => input.parentElement.querySelector('.tagify__input')?.focus(), 0);
       } else {
+        // Jika tidak dicentang, KEMBALIKAN JADI INPUT BIASA!
+        app.tagInputs.destroy(input);
         input.value = '';
       }
-      // KOREKSI #3: Panggil generate() setelah mengubah state
       this.generate();
     },
+
+    // Di dalam script.js -> app.dork
     generate() {
       const dorkParts = [];
       let keyword = app.elements.keywordInput?.value || '';
 
-      // KOREKSI #2: Semua referensi sekarang menggunakan document.getElementById agar selalu up-to-date
       if (document.getElementById('exactCheckbox')?.checked && keyword) {
         keyword = `"${keyword}"`;
       }
@@ -209,32 +242,64 @@ const app = {
         dorkParts[dorkParts.length - 1] += ' *';
       }
 
-      function addOperator(opName) {
+      // Fungsi bantuan yang lebih pintar
+      function addOperator(opName, config = {}) {
+        const { prefix = `${opName}:`, isSimple = false } = config;
         const checkbox = document.getElementById(`${opName}Checkbox`);
-        const input = document.getElementById(`${opName}Input`);
-        if (checkbox?.checked && input?.value) {
-          dorkParts.push(`${opName}:${input.value}`);
+        const inputId = `${opName}Input`;
+        const inputElement = document.getElementById(inputId);
+
+        if (!checkbox?.checked) return;
+
+        if (isSimple) {
+          if (app.elements.keywordInput?.value) {
+            dorkParts.push(`${prefix}"${app.elements.keywordInput.value}"`);
+          }
+          return;
+        }
+
+        if (app.tagInputs.instances[inputId]) {
+          const tagifyInstance = app.tagInputs.instances[inputId];
+          const tags = tagifyInstance.value.map((tag) => tag.value.trim()).filter(Boolean);
+          if (tags.length === 0) return;
+
+          if (opName === 'exclude') {
+            // Perlakuan khusus untuk 'exclude', gabung pake spasi
+            const excludeParts = tags.map((val) => `${prefix}${val}`);
+            dorkParts.push(excludeParts.join(' '));
+          } else {
+            // Logika lama untuk operator lain, gabung pake 'OR'
+            const orParts = tags.map((val) => `${prefix}${val}`);
+            dorkParts.push(tags.length > 1 ? `(${orParts.join(' OR ')})` : orParts[0]);
+          }
+          
         }
       }
-      function addSimpleOperator(opName) {
-        const checkbox = document.getElementById(`${opName}Checkbox`);
-        if (checkbox?.checked && app.elements.keywordInput?.value) {
-          dorkParts.push(`${opName}:"${app.elements.keywordInput.value}"`);
-        }
+
+      // "Daftar Kerjaan" untuk semua operator
+      const operatorConfig = {
+        intext: { isSimple: true },
+        intitle: { isSimple: true },
+        inurl: { isSimple: false },
+        site: { isSimple: false },
+        filetype: { isSimple: false },
+        exclude: { prefix: '-' },
+        allintext: { isSimple: false },
+        allinurl: { isSimple: false },
+        allintitle: { isSimple: false },
+        link: { isSimple: false },
+        related: { isSimple: false },
+        cache: { isSimple: false },
+        info: { isSimple: false },
+        define: { isSimple: false },
+        source: { isSimple: false },
+        location: { isSimple: false },
+      };
+
+      // Eksekusi semua pekerjaan
+      for (const opName in operatorConfig) {
+        addOperator(opName, operatorConfig[opName]);
       }
-
-      addOperator('site');
-      addOperator('filetype');
-      addSimpleOperator('intitle');
-
-      const excludeInput = document.getElementById('excludeInput');
-      if (document.getElementById('excludeCheckbox')?.checked && excludeInput?.value) {
-        dorkParts.push(`-${excludeInput.value}`);
-      }
-
-      addSimpleOperator('intext');
-      addOperator('related');
-      addOperator('cache');
 
       if (app.elements.hasilDork) {
         app.elements.hasilDork.value = dorkParts.join(' ');

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cari Jitu! - Dorking Helper</title>
     <link href="output.css" rel="stylesheet" />
+    <link href="tagify.css" rel="stylesheet" type="text/css" />
     <!-- <link href="output.css" rel="stylesheet" /> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -80,7 +81,94 @@
         </div>
 
         <div id="panel-container" class="pt-2">
-          <div id="panel-dasar" class="tab-panel space-y-3 transition-opacity duration-300 ease-in-out">
+          <div id="panel-dasar" class="tab-panel grid lg:grid-cols-2 gap-4 space-y-3 transition-opacity duration-300 ease-in-out">
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="intextCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="intextCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>intext:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari kata di dalam isi halaman</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari kata kunci yang muncul di dalam isi halaman web. Contoh: intext:"laporan keuangan"
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="intextInput"
+                placeholder="contoh: laporan, admin"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed mt-2"
+                disabled
+              />
+            </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="inurlCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="inurlCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>inurl:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari kata di dalam URL</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari kata kunci yang muncul di dalam URL halaman web. Contoh: inurl:"/admin/login"
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="inurlInput"
+                placeholder="contoh: login, admin"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed mt-2"
+                disabled
+              />
+            </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="intitleCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="intitleCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>intitle:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari kata di dalam judul</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari kata kunci yang muncul di dalam judul halaman web. Contoh: intitle:"index of" "parent directory"
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="intitleInput"
+                placeholder="contoh: laporan keuangan"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed mt-2"
+                disabled
+              />
+            </div>
+
             <div class="card-operator">
               <div class="flex items-center">
                 <input id="siteCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
@@ -97,7 +185,7 @@
                     />
                   </svg>
                   <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    Mencari hanya di dalam domain atau website spesifik.
+                    Membatasi pencarian hanya pada domain atau situs web tertentu. Contoh: site:kompas.com
                   </span>
                 </div>
               </div>
@@ -138,28 +226,6 @@
                 disabled
               />
             </div>
-
-            <div class="card-operator">
-              <div class="flex items-center">
-                <input id="intitleCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
-                <label for="intitleCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
-                  <code>intitle:</code>
-                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari kata di dalam judul</span>
-                </label>
-                <div class="group relative ml-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
-                    />
-                  </svg>
-                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    Mencari kata kunci yang muncul di dalam judul halaman web.
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div id="panel-tepat" class="tab-panel hidden space-y-3 transition-opacity duration-300 ease-in-out">
@@ -180,6 +246,28 @@
                   </svg>
                   <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                     Mencari frasa yang sama persis, termasuk urutan katanya. Sangat berguna untuk hasil yang akurat.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="wildcardCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="wildcardCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>*</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Gunakan sebagai wildcard</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Berfungsi sebagai wildcard atau 'kata apa saja'. Berguna untuk melengkapi frasa yang tidak lengkap.
                   </span>
                 </div>
               </div>
@@ -213,37 +301,15 @@
                 disabled
               />
             </div>
-
-            <div class="card-operator">
-              <div class="flex items-center">
-                <input id="wildcardCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
-                <label for="wildcardCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
-                  <code>*</code>
-                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Gunakan sebagai wildcard</span>
-                </label>
-                <div class="group relative ml-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
-                    />
-                  </svg>
-                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    Berfungsi sebagai wildcard atau 'kata apa saja'. Berguna untuk melengkapi frasa yang tidak lengkap.
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div id="panel-lanjutan" class="tab-panel hidden space-y-3 transition-opacity duration-300 ease-in-out">
             <div class="card-operator">
               <div class="flex items-center">
-                <input id="intextCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
-                <label for="intextCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
-                  <code>intext:</code>
-                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari kata di dalam isi halaman</span>
+                <input id="allintextCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="allintextCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>allintext:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari semua kata dalam isi halaman</span>
                 </label>
                 <div class="group relative ml-2">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
@@ -254,10 +320,104 @@
                     />
                   </svg>
                   <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    Mencari kata kunci yang muncul di mana saja di dalam konten/isi halaman.
+                    Mencari semua kata kunci yang muncul di mana saja di dalam konten/isi halaman.
                   </span>
                 </div>
               </div>
+              <input
+                type="text"
+                id="allintextInput"
+                placeholder="contoh: laporan keuangan 2023"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed mt-2"
+                disabled
+              />
+            </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="allinurlCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="allinurlCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>allinurl:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari semua kata dalam URL</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari semua kata kunci yang muncul di dalam URL halaman web.
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="allinurlInput"
+                placeholder="contoh: login admin portal"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
+            </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="allintitleCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="allintitleCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>allintitle:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari semua kata dalam judul</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari semua kata kunci yang muncul di dalam judul halaman web.
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="allintitleInput"
+                placeholder="contoh: laporan keuangan 2023"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
+            </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="linkCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="linkCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>link:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari tautan ke halaman</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari halaman lain yang menautkan ke URL tertentu.
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="linkInput"
+                placeholder="contoh: wikipedia.org"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
             </div>
 
             <div class="card-operator">
@@ -317,6 +477,122 @@
                 disabled
               />
             </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="infoCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="infoCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>info:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Dapatkan informasi tentang situs</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Menampilkan informasi dasar tentang sebuah situs web.
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="infoInput"
+                placeholder="contoh: google.com"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
+            </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="defineCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="defineCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>define:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari definisi kata</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Menampilkan definisi dari kata yang dimasukkan.
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="defineInput"
+                placeholder="contoh: serendipity"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
+            </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="sourceCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="sourceCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>source:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari di sumber berita</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Mencari artikel berita dari sumber tertentu di Google News.
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="sourceInput"
+                placeholder="contoh: reuters, cnn"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
+            </div>
+
+            <div class="card-operator">
+              <div class="flex items-center">
+                <input id="locationCheckbox" type="checkbox" class="h-6 w-6 rounded border-neutral-300 text-primary-500 focus:ring-primary-500" />
+                <label for="locationCheckbox" class="ml-4 flex-1 text-md font-medium text-neutral-700 dark:text-neutral-200 cursor-pointer">
+                  <code>location:</code>
+                  <span class="text-neutral-500 dark:text-neutral-400 font-normal"> - Cari di lokasi berita tertentu</span>
+                </label>
+                <div class="group relative ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-neutral-400">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                    />
+                  </svg>
+                  <span class="absolute bottom-full mb-2 w-48 rounded-md bg-neutral-900 p-2 text-xs text-white text-start opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    Membatasi pencarian berita di Google News pada lokasi geografis tertentu.
+                  </span>
+                </div>
+              </div>
+              <input
+                type="text"
+                id="locationInput"
+                placeholder="contoh: jakarta"
+                class="w-full p-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-md transition disabled:bg-neutral-200 dark:disabled:bg-neutral-700 disabled:cursor-not-allowed"
+                disabled
+              />
+            </div>
           </div>
         </div>
 
@@ -347,6 +623,6 @@
       </div>
     </div>
 
-    <script src="script.js" defer></script>
+    <script type="module" src="/script.js" defer></script>
   </body>
 </html>
